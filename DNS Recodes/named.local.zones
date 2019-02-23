@@ -1,0 +1,11 @@
+zone "cyber1337s.pw" IN {
+        type master;
+        file "/var/named/for.cyber1337s.pw.db";
+        allow-update { none; };
+};
+
+zone "112.168.192.in-addr.arpa" IN {
+        type master;
+        file "/var/named/rev.cyber1337s.pw.db";
+        allow-update { none; };
+};

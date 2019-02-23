@@ -1,0 +1,22 @@
+$TTL 86400
+@       IN      SOA     ns.cyber1337s.pw. root.cyber1337s.pw. (
+                20181022 ; Serial
+                3600    ; Refresh
+                1800    ; Retry
+                604800  ; Expire
+                86400   ; Minimum TTL
+        )
+@       IN      NS      ns.cyber1337s.pw.
+@       IN      PTR     cyber1337s.pw.
+ns      IN      A       192.168.112.10
+DC01    IN      A       192.168.112.11
+DC02    IN      A       192.168.112.12
+smb     IN      A       192.168.112.13
+www     IN      A       192.168.112.14
+fw      IN      A       192.168.112.15
+10      IN      PTR     ns.cyber1337s.pw.
+11      IN      PTR     DC01.cyber1337s.pw.
+12      IN      PTR     DC02.cyber1337s.pw.
+smb     IN      PTR     smb.cyber1337s.pw.
+www     IN      PTR     www.cyber1337s.pw.
+fw      IN      PTR     fw.cyber13337s.pw.
