@@ -17,6 +17,6 @@ fw      IN      A       192.168.112.15
 10      IN      PTR     ns.cyber1337s.pw.
 11      IN      PTR     DC01.cyber1337s.pw.
 12      IN      PTR     DC02.cyber1337s.pw.
-smb     IN      PTR     smb.cyber1337s.pw.
-www     IN      PTR     www.cyber1337s.pw.
-fw      IN      PTR     fw.cyber13337s.pw.
+13      IN      PTR     smb.cyber1337s.pw.
+14      IN      PTR     www.cyber1337s.pw.
+15      IN      PTR     fw.cyber13337s.pw.
