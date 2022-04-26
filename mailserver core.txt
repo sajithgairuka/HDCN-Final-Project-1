@@ -1,0 +1,119 @@
+hostnamectl set-hostname mailserver.abc.local
+hostnamectl status
+reboot
+
+vim /etc/hosts
+
+then enter----->
+
+192.168.2.10	dns.abc.local	dns
+192.168.2.15	firewall.abc.local	firewall
+192.168.2.30	servera.abc.local	serverA 
+192.168.2.20	serverb.abc.local	serverB 
+192.168.2.40	mailserver.abc.local	mailserver
+
+systemct restart network
+
+vim /etc/sysconfig/selinux
+   change SELINUX=enforcing into SELINUX=disabled
+
+vim /etc/rsyslog.conf
+Uncomment these two lines
+$modload imupd
+$UDPServerRun514
+
+firewall-cmd --permanent --add-port=25/tcp
+firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --permanent --add-port=110/tcp
+firewall-cmd --permanent --add-port=143/tcp
+firewall-cmd --permanent --add-port=389/tcp
+firewall-cmd --permanent --add-port=443/tcp
+firewall-cmd --permanent --add-port=993/tcp
+firewall-cmd --permanent --add-port=995/tcp
+firewall-cmd --permanent --add-port=7025/tcp
+firewall-cmd --permanent --add-port=7071/tcp
+firewall-cmd --permanent --add-port=22/tcp
+firewall-cmd --permanent --add-service=http
+firewall-cmd --permanent --add-service=https
+firewall-cmd --permanent --add-service=ldap
+firewall-cmd --permanent --add-service={pop3,pop3s,imap,imaps,smtp,smtps}
+firewall-cmd --reload 
+
+systemctl stop postfix
+systemctl disable postfix
+systemctl status postfix
+
+systemctl enable rsyslog
+systemctl restart rsyslog
+systemctl status rsyslog
+
+systemctl enable crond
+systemctl start crond
+systemctl status crond
+
+yum update
+
+yum install -y libidn gmp perl perl-core ntpl nmap sudo sysstat sqlite libaio libstdc++ wget unzip
+yum install sudo openssh-clients libaio  unzip net-tools sysstat perl-core nmap-ncat libstdc++.so.6
+yum install nptl nmap-ncat sudo-1.8.6p7-13 libidn-1.28-3 gmp-6.0.0-11 libaio-0.3.109-12 gmp-6.0.0-11 libaio-0.3.109-12 libstdc++-4.8.3-9 unzip-6.0-13 perl-core perl-5.16.3 sysstat sqlite
+
+
+mkdir Email_Backup
+cd Email_Backup
+wget https://files.zimbra.com/downloads/8.8.15_GA/zcs-8.8.15_GA_3869.RHEL7_64.20190918004220.tgz
+tar xvf zcs-8.8.15_GA_3869.RHEL7_64.20190918004220.tgz
+cd zcs-8.8.15_GA_3869.RHEL7_64.20190918004220
+./install.sh --platform-override (---platform-override   is optional)
+
+
+choose option 7 for Zimbra Store Settings as below and choose option 4 and change admin password
+
+Zimbra Store Configuration	 
+1. Status	Enabled
+2. Create Admin User:	Yes
+3. Admin user to create:	linux-tutorials.linoxide.com
+4. Admin Password	*******
+5. Anti-virus quarantine user:	Virus-quarantine@linux-tutorials.linoxide.com
+6. Enable automated spam training:	Yes
+7. Spam training user:	spam@linux-tutorials.linoxide.com
+8. Non-spam(Ham) training user:	ham@linux-tutorials.linoxide.com
+9. SMTP host:	linux-tutorials.linuxide.com
+10. Web server HTTP port:	8080
+11. Web server HTTPS port:	8443
+12. Web server mode:	https
+13. IMAP server port:	7143
+14. IMAP server SSL port:	7993
+15. POP server port:	7110
+16. POP server SSL port:	7995
+17. Use spell check server:	Yes
+18. Spell server URL:	http://linux-tutorials.linoxide.com:7780/aspell.php
+19. Enable version update checks:	TRUE
+20. Enable version update checks:	TRUE
+21. Version update notification email:	admin@linux-tutorials.linoxide.com
+22. Version update source email:	admin@linux-tutorials.linoxide.com
+23. Install mailstore (service webapp):	Yes
+24. Install UI (zimbra,zimbraAdmin webapps)	Yes
+
+
+
+
+
+
+
+
+/opt/zimbra/libexec/zmsyslogsetup
+su - zimbra
+zmupdateauthkeys
+zmcontrol restart
+zmcontrol status
+
+
+su - zimbra
+ /opt/zimbra/bin/zmprov ms 'mailserver.abc.local' zimbraMemcachedBindAddress 192.168.2.40 
+ /opt/zimbra/bin/zmprov ms 'mailserver.abc.local' zimbraMemcachedClientServerList 192.168.2.40
+
+
+zmprov mcf zimbraAttachmentsScanURL clam://localhost:3310/
+zmprov mcf zimbraAttachmentsScanEnabled TRUE
+
+
