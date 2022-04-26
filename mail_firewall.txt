@@ -1,0 +1,61 @@
+wget https://files.zimbra.com/downloads/8.8.15_GA/zcs-8.8.15_GA_3869.RHEL7_64.20190918004220.tgz
+yum install -y libidn gmp perl perl-core ntpl nmap sudo sysstat sqlite libaio libstdc++ wget unzip
+yum install nptl nmap-ncat sudo-1.8.6p7-13 libidn-1.28-3 gmp-6.0.0-11 libaio-0.3.109-12 gmp-6.0.0-11 libaio-0.3.109-12 libstdc++-4.8.3-9 unzip-6.0-13 perl-core perl-5.16.3 sysstat sqlite
+yum install sudo openssh-clients libaio  unzip net-tools sysstat perl-core nmap-ncat libstdc++.so.6
+
+nano /etc/sysconfig/selinux
+SELINUX=disabled
+
+
+firewall-cmd --permanent --add-port=7071/tcp
+firewall-cmd --permanent --add-port=25/tcp
+firewall-cmd --permanent --add-port=110/tcp
+firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --permanent --add-port=389/tcp
+firewall-cmd --permanent --add-port=443/tcp
+firewall-cmd --permanent --add-port=993/tcp
+firewall-cmd --permanent --add-port=995/tcp
+firewall-cmd --permanent --add-port=7025/tcp
+firewall-cmd --permanent --add-port=22/tcp
+firewall-cmd --permanent --add-port=465/tcp
+firewall-cmd --permanent --add-port=587/tcp
+firewall-cmd --permanent --add-port=3443/tcp
+firewall-cmd --permanent --add-port=5222/tcp
+firewall-cmd --permanent --add-port=5223/tcp
+firewall-cmd --permanent --add-port=9071/tcp
+firewall-cmd --permanent --add-port=143/tcp
+firewall-cmd --permanent --add-port=7025/tcp
+firewall-cmd --permanent --add-port=7026/tcp
+firewall-cmd --permanent --add-port=7047/tcp
+firewall-cmd --permanent --add-port=7072/tcp
+firewall-cmd --permanent --add-port=7110/tcp
+firewall-cmd --permanent --add-port=7143/tcp
+firewall-cmd --permanent --add-port=7171/tcp
+firewall-cmd --permanent --add-port=7306/tcp
+firewall-cmd --permanent --add-port=7307/tcp
+firewall-cmd --permanent --add-port=8080/tcp
+firewall-cmd --permanent --add-port=8465/tcp
+firewall-cmd --permanent --add-port=8735/tcp
+firewall-cmd --permanent --add-service=http
+firewall-cmd --permanent --add-service=https
+firewall-cmd --permanent --add-service=ldap
+firewall-cmd --reload 
+
+
+firewall-cmd --permanent --add-port=25/tcp
+firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --permanent --add-port=110/tcp
+firewall-cmd --permanent --add-port=143/tcp
+firewall-cmd --permanent --add-port=389/tcp
+firewall-cmd --permanent --add-port=443/tcp
+firewall-cmd --permanent --add-port=993/tcp
+firewall-cmd --permanent --add-port=995/tcp
+firewall-cmd --permanent --add-port=7025/tcp
+firewall-cmd --permanent --add-port=7071/tcp
+firewall-cmd --permanent --add-port=22/tcp
+firewall-cmd --permanent --add-service=http
+firewall-cmd --permanent --add-service=https
+firewall-cmd --permanent --add-service=ldap
+firewall-cmd --permanent --add-service={pop3,pop3s,imap,imaps,smtp,smtps}
+firewall-cmd --reload 
+
